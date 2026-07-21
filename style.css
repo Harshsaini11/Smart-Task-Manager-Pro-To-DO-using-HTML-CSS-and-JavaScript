@@ -1,0 +1,964 @@
+/* ==========================================
+   1. CSS VARIABLES & THEMES
+   ========================================== */
+:root {
+    /* Brand Colors */
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --accent: #ec4899;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --success: #10b981;
+
+    /* Fonts */
+    --font-main: 'Plus Jakarta Sans', sans-serif;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+}
+
+/* Dark Theme (Default) */
+[data-theme="dark"] {
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --input-bg: rgba(255, 255, 255, 0.07);
+    --input-border: rgba(255, 255, 255, 0.15);
+    --card-hover-bg: rgba(255, 255, 255, 0.09);
+    --blob-1: #4f46e5;
+    --blob-2: #9333ea;
+    --blob-3: #c026d3;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+    --bg-gradient: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 50%, #fae8ff 100%);
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --input-bg: rgba(255, 255, 255, 0.7);
+    --input-border: rgba(99, 102, 241, 0.2);
+    --card-hover-bg: rgba(255, 255, 255, 0.75);
+    --blob-1: #818cf8;
+    --blob-2: #c084fc;
+    --blob-3: #f472b6;
+}
+
+/* ==========================================
+   2. GLOBAL RESETS & BODY
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+    overflow-x: hidden;
+    position: relative;
+    transition: background var(--transition-normal);
+}
+
+/* Animated Glass Background Blobs */
+.bg-shape {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    z-index: -1;
+    opacity: 0.5;
+    animation: floatBlob 12s infinite alternate ease-in-out;
+}
+
+.shape-1 {
+    width: 350px;
+    height: 350px;
+    background: var(--blob-1);
+    top: -50px;
+    left: -50px;
+}
+
+.shape-2 {
+    width: 400px;
+    height: 400px;
+    background: var(--blob-2);
+    bottom: -100px;
+    right: -50px;
+    animation-delay: -4s;
+}
+
+.shape-3 {
+    width: 300px;
+    height: 300px;
+    background: var(--blob-3);
+    top: 40%;
+    left: 40%;
+    animation-delay: -8s;
+}
+
+@keyframes floatBlob {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(40px, 50px) scale(1.1); }
+}
+
+/* ==========================================
+   3. GLASSMORPHISM UTILITY CARD
+   ========================================== */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    padding: 1.5rem;
+    transition: background var(--transition-normal), border var(--transition-normal);
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* ==========================================
+   4. HEADER SECTION
+   ========================================== */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-greeting h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.sub-text {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.25rem;
+}
+
+.icon-btn {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text-main);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: var(--transition-fast);
+}
+
+.icon-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* ==========================================
+   5. STATISTICS & PROGRESS
+   ========================================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--input-bg);
+    border-radius: 12px;
+    border: 1px solid var(--glass-border);
+}
+
+.stat-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.text-danger { color: var(--danger); }
+
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 10px;
+    background: var(--input-bg);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+    border-radius: 10px;
+    transition: width 0.4s ease;
+}
+
+/* ==========================================
+   6. MAIN LAYOUT & FORM STYLING
+   ========================================== */
+.main-layout {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.task-form-card h3 {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+input, select {
+    width: 100%;
+    padding: 0.65rem 0.8rem;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 10px;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+input:focus, select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+select option {
+    background: #1e1b4b;
+    color: #fff;
+}
+
+[data-theme="light"] select option {
+    background: #fff;
+    color: #0f172a;
+}
+
+.btn {
+    padding: 0.75rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: var(--transition-fast);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-block { width: 100%; }
+
+/* ==========================================
+   7. TOOLBAR & SEARCH
+   ========================================== */
+.task-display-area {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-box i {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-muted);
+}
+
+.search-box input {
+    padding-left: 2.5rem;
+}
+
+.filter-tabs {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+}
+
+.tab-btn {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text-muted);
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition-fast);
+}
+
+.tab-btn.active, .tab-btn:hover {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+}
+
+/* Task List Empty State Area */
+.task-list-wrapper h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* ==========================================
+   8. TASK CARD & BADGE STYLING (PART 2)
+   ========================================== */
+.task-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1.2rem;
+    border-radius: 16px;
+    position: relative;
+    transition: transform var(--transition-fast), background var(--transition-normal);
+}
+
+.task-card:hover {
+    transform: translateY(-2px);
+    background: var(--card-hover-bg);
+}
+
+.task-card.completed {
+    opacity: 0.7;
+}
+
+.task-card.completed .task-title {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.task-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.checkbox-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.75rem;
+    transition: var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.checkbox-btn.checked {
+    background: var(--success);
+    border-color: var(--success);
+}
+
+.task-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--text-main);
+    word-break: break-word;
+}
+
+.task-badges {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.badge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+}
+
+.badge-priority.high { border-color: rgba(239, 68, 68, 0.4); }
+.badge-priority.medium { border-color: rgba(245, 158, 11, 0.4); }
+.badge-priority.low { border-color: rgba(16, 185, 129, 0.4); }
+
+.task-meta {
+    display: flex;
+    gap: 1.2rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.overdue-tag {
+    background: var(--danger);
+    color: #fff;
+    font-size: 0.65rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-weight: 700;
+    margin-left: 0.3rem;
+}
+
+.task-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 0.6rem;
+}
+
+.action-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    transition: var(--transition-fast);
+}
+
+.edit-btn:hover {
+    color: var(--primary);
+    background: var(--input-bg);
+}
+
+.delete-btn:hover {
+    color: var(--danger);
+    background: var(--input-bg);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+    opacity: 0.5;
+}
+
+/* ==========================================
+   9. FILTER ANIMATIONS & ENHANCEMENTS (PART 3)
+   ========================================== */
+.task-card {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.empty-state i {
+    font-size: 2.5rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+}
+
+/* ==========================================
+   10. COUNTDOWN & REMINDER BADGES (PART 4)
+   ========================================== */
+.countdown-badge {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    padding: 0.15rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.countdown-urgent {
+    border-color: rgba(245, 158, 11, 0.5);
+    color: var(--warning);
+}
+
+.countdown-critical {
+    border-color: rgba(239, 68, 68, 0.6);
+    color: var(--danger);
+    animation: blinkGlow 1.5s infinite alternate;
+}
+
+@keyframes blinkGlow {
+    from {
+        box-shadow: 0 0 2px rgba(239, 68, 68, 0.2);
+    }
+    to {
+        box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+    }
+}
+
+/* ==========================================
+   11. DRAG & DROP STYLING (PART 5)
+   ========================================== */
+.task-card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.8rem;
+    cursor: grab;
+    user-select: none;
+}
+
+.task-card:active {
+    cursor: grabbing;
+}
+
+.drag-handle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding-top: 0.2rem;
+    opacity: 0.5;
+    transition: var(--transition-fast);
+}
+
+.task-card:hover .drag-handle {
+    opacity: 1;
+    color: var(--primary);
+}
+
+.task-content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+/* Dragging active state on card */
+.task-card.dragging {
+    opacity: 0.4;
+    border: 2px dashed var(--primary);
+    transform: scale(0.98);
+}
+
+/* Target card drop indicator highlight */
+.task-card.drag-over {
+    border-top: 3px solid var(--accent);
+    background: var(--card-hover-bg);
+}
+
+/* ==========================================
+   12. MINI CALENDAR WIDGET (PART 6)
+   ========================================== */
+.calendar-card {
+    margin-top: 1rem;
+    padding: 1rem;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.calendar-header h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.icon-btn-sm {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text-main);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    transition: var(--transition-fast);
+}
+
+.icon-btn-sm:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+.calendar-days-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.cal-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    background: transparent;
+    transition: var(--transition-fast);
+}
+
+.cal-day:hover:not(.empty) {
+    background: var(--input-bg);
+}
+
+.cal-day.today {
+    border: 1px solid var(--primary);
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.cal-day.selected {
+    background: var(--primary) !important;
+    color: #fff !important;
+}
+
+/* Dots for dates with scheduled tasks */
+.cal-day.has-tasks::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.cal-day.has-overdue::after {
+    background: var(--danger);
+}
+
+/* ==========================================
+   13. EXPORT & PRINT STYLESHEET (PART 7)
+   ========================================== */
+.export-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+/* High-Quality PDF / Printer Stylesheet Overrides */
+@media print {
+    body {
+        background: #fff !important;
+        color: #000 !important;
+        padding: 0 !important;
+    }
+
+    .bg-shape,
+    .header-controls,
+    .task-form-card,
+    .toolbar,
+    .calendar-card,
+    .task-actions,
+    .drag-handle,
+    .icon-btn {
+        display: none !important;
+    }
+
+    .app-container {
+        max-width: 100% !important;
+        gap: 1rem !important;
+    }
+
+    .main-layout {
+        grid-template-columns: 1fr !important;
+    }
+
+    .glass-card {
+        background: #fff !important;
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        color: #000 !important;
+    }
+
+    .task-card {
+        border: 1px solid #ccc !important;
+        page-break-inside: avoid;
+    }
+
+    .checkbox-btn {
+        border-color: #000 !important;
+    }
+
+    .checkbox-btn.checked {
+        background: #000 !important;
+        color: #fff !important;
+    }
+}
+/* ==========================================
+   14. BONUS FEATURES & POLISH (PART 8)
+   ========================================== */
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.voice-btn {
+    position: absolute;
+    right: 8px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 6px;
+    font-size: 1rem;
+    transition: var(--transition-fast);
+}
+
+.voice-btn:hover {
+    color: var(--accent);
+}
+
+.voice-btn.listening {
+    color: var(--danger);
+    animation: pulseMic 1s infinite alternate;
+}
+
+@keyframes pulseMic {
+    from { transform: scale(1); }
+    to { transform: scale(1.2); }
+}
+
+.bonus-section {
+    margin-top: 1.5rem;
+}
+
+.bonus-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .bonus-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.pomodoro-box, .sticky-notes-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.timer-display {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 2px;
+    color: var(--accent);
+}
+
+.timer-status {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.timer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.sticky-notes-box textarea {
+    width: 100%;
+    height: 120px;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 12px;
+    color: var(--text-main);
+    padding: 0.8rem;
+    font-family: inherit;
+    resize: vertical;
+    outline: none;
+}
+
+.sticky-notes-box textarea:focus {
+    border-color: var(--primary);
+}
+
+/* ==========================================
+   15. FOOTER & OWNER CREDITS STYLING
+   ========================================== */
+.footer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.footer strong {
+    color: var(--text-main);
+}
+
+.footer-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: var(--transition-fast);
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+}
+
+@media (max-width: 600px) {
+    .footer {
+        flex-direction: column;
+        text-align: center;
+    }
+}

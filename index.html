@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Task Manager Pro</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Animated Blobs -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    <div class="bg-shape shape-3"></div>
+
+    <div class="app-container">
+        <!-- HEADER / DASHBOARD TOP -->
+        <header class="glass-card header">
+            <div class="user-greeting">
+                <h1 id="greetingText">Good Day 👋</h1>
+                <p id="liveDateTime" class="sub-text">Loading date & time...</p>
+            </div>
+            <div class="header-controls">
+                <button id="themeToggleBtn" class="icon-btn" title="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- STATISTICS DASHBOARD -->
+        <section class="glass-card stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value" id="statTotal">0</span>
+                    <span class="stat-label">Total Tasks</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="statCompleted">0</span>
+                    <span class="stat-label">Completed</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="statPending">0</span>
+                    <span class="stat-label">Pending</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value text-danger" id="statOverdue">0</span>
+                    <span class="stat-label">Overdue</span>
+                </div>
+            </div>
+            
+            <!-- Dynamic Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span>Overall Progress</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBarFill" style="width: 0%;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN CONTENT LAYOUT -->
+        <main class="main-layout">
+            <!-- LEFT COLUMN: TASK CREATION FORM -->
+            <aside class="glass-card task-form-card">
+                <div class="glass-card calendar-card">
+    <div class="calendar-header">
+        <button id="prevMonthBtn" class="icon-btn-sm"><i class="fa-solid fa-chevron-left"></i></button>
+        <h4 id="calendarMonthYear">July 2026</h4>
+        <button id="nextMonthBtn" class="icon-btn-sm"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+    <div class="calendar-days-header">
+        <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+    </div>
+    <div id="calendarGrid" class="calendar-grid">
+        <!-- Generated dynamically by script.js -->
+    </div>
+</div>
+                <h3><i class="fa-solid fa-plus-circle"></i> Create New Task</h3>
+                <form id="taskForm">
+                    <div class="form-group">
+    <label for="taskTitle">Task Name</label>
+    <div class="input-with-icon">
+        <input type="text" id="taskTitle" placeholder="e.g. Finish JavaScript Module" required>
+        <button type="button" id="voiceBtn" class="voice-btn" title="Speak to Add Task">
+            <i class="fa-solid fa-microphone"></i>
+        </button>
+    </div>
+</div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskCategory">Category</label>
+                            <select id="taskCategory">
+                                <option value="Study">📚 Study</option>
+                                <option value="Work">💼 Work</option>
+                                <option value="Personal">👤 Personal</option>
+                                <option value="Shopping">🛒 Shopping</option>
+                                <option value="Health">❤️ Health</option>
+                                <option value="Other">📌 Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskPriority">Priority</label>
+                            <select id="taskPriority">
+                                <option value="High">🔴 High</option>
+                                <option value="Medium" selected>🟡 Medium</option>
+                                <option value="Low">🟢 Low</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskDueDate">Due Date</label>
+                            <input type="date" id="taskDueDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="taskDueTime">Due Time</label>
+                            <input type="time" id="taskDueTime" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskReminder">Reminder</label>
+                        <select id="taskReminder">
+                            <option value="none">No Reminder</option>
+                            <option value="15">15 Minutes Before</option>
+                            <option value="30">30 Minutes Before</option>
+                            <option value="60">1 Hour Before</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fa-solid fa-paper-plane"></i> Add Task
+                    </button>
+                </form>
+            </aside>
+
+            <!-- RIGHT COLUMN: FILTERS & TASK LIST -->
+            <section class="task-display-area">
+                <!-- SEARCH & FILTER TOOLBAR -->
+                <div class="glass-card toolbar">
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchInput" placeholder="Search tasks...">
+                    </div>
+                    <div class="export-actions">
+    <button id="exportCsvBtn" class="action-btn" title="Export Tasks to CSV">
+        <i class="fa-solid fa-file-csv"></i> Export CSV
+    </button>
+    <button id="printTasksBtn" class="action-btn" title="Print Task List / Save as PDF">
+        <i class="fa-solid fa-print"></i> Print / PDF
+    </button>
+</div>
+                    <div class="filter-tabs" id="filterTabs">
+                        <button class="tab-btn active" data-filter="all">All</button>
+                        <button class="tab-btn" data-filter="pending">Pending</button>
+                        <button class="tab-btn" data-filter="completed">Completed</button>
+                        <button class="tab-btn" data-filter="today">Today</button>
+                        <button class="tab-btn" data-filter="overdue">Overdue</button>
+                    </div>
+                </div>
+
+                <!-- TASK LIST CONTAINER -->
+                <div class="task-list-wrapper">
+                    <h3><i class="fa-solid fa-list-check"></i> Tasks</h3>
+                    <div id="taskList" class="task-list">
+                        <!-- Tasks dynamically injected by script.js in Part 2 -->
+                    </div>
+                </div>
+            </section>
+        </main>
+        <section class="glass-card bonus-section">
+            <div class="bonus-grid">
+                <!-- POMODORO TIMER -->
+                <div class="pomodoro-box">
+                    <h3><i class="fa-solid fa-stopwatch"></i> Pomodoro Timer</h3>
+                    <div class="timer-display" id="pomodoroDisplay">25:00</div>
+                    <div class="timer-status" id="pomodoroStatus">Focus Time 🎯</div>
+                    <div class="timer-controls">
+                        <button id="pomoStartBtn" class="btn btn-primary"><i class="fa-solid fa-play"></i> Start</button>
+                        <button id="pomoResetBtn" class="btn"><i class="fa-solid fa-rotate-right"></i> Reset</button>
+                    </div>
+                </div>
+
+                <!-- STICKY QUICK NOTES -->
+                <div class="sticky-notes-box">
+                    <h3><i class="fa-solid fa-note-sticky"></i> Quick Notepad</h3>
+                    <textarea id="quickNotes" placeholder="Jot down quick thoughts or code snippets here... (Auto saved)"></textarea>
+                </div>
+            </div>
+        </section>
+        <!-- FOOTER / OWNER CREDITS -->
+        <footer class="glass-card footer">
+            <p>Designed & Developed with ❤️ by <strong>Harsh Kumar Saini</strong></p>
+            <div class="footer-links">
+                <a href="https://github.com/your-github-username" target="_blank" title="GitHub Profile">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+                <a href="https://linkedin.com/in/your-linkedin-id" target="_blank" title="LinkedIn Profile">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+        </footer>
+    </div>
+
+<!-- Canvas Confetti Library CDN (Put before script.js) -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
